@@ -1,0 +1,26 @@
+apiVersion: ingress.example.com/v1alpha1
+kind: AppIngress
+metadata:
+  labels:
+    app.kubernetes.io/name: sample-ingress
+    app.kubernetes.io/managed-by: kustomize
+  name: appingress-sample
+spec:
+  targetNamespace: test-ingress
+  template:
+    metadata:
+      name: sample-web-app
+      labels:
+        app: web
+    spec:
+      rules:
+      - host: example.local
+        http:
+          paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: web-service
+                port:
+                  number: 80
